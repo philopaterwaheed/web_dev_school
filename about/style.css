@@ -1,3 +1,8 @@
 h1{
 	font-size : 50px;
 }
+.card {
+	/* background-image: url('pics/hadi-karimi-gk-1.jpg'); */
+	height: 350px;
+	width: 250px;
+}
