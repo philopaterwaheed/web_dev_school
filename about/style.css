@@ -1,8 +1,23 @@
 h1{
 	font-size : 50px;
+	color : #538695;
+}
+body{
+	background-color: #0A090C;
+}
+.cont{
+	display: flex;
+	/* justify-content: center; */
+	/* align-items: center; */
+	flex-direction: raw;
 }
 .card {
-	/* background-image: url('pics/hadi-karimi-gk-1.jpg'); */
-	height: 350px;
-	width: 250px;
+
+	background-color: #46424F;
+	background-image: url("pics/hadi-karimi-gk-1.jpg") ;
+	background-size: 100% 100%;
+	/* background-repeat: no-repeat; */
+	height: 450px;
+	width: 350px;
+	border-radius : 250px;
 }
