@@ -11,6 +11,10 @@ body{
 	/* align-items: center; */
 	flex-direction: raw;
 }
+.para{
+	display: flex;
+	flex-direction: column;
+}
 .card {
 
 	background-color: #46424F;
