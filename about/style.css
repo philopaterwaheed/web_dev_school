@@ -10,6 +10,7 @@ body{
 	/* justify-content: center; */
 	/* align-items: center; */
 	flex-direction: raw;
+	border-radius: 50 px; 
 }
 .para{
 	display: flex;
@@ -25,3 +26,31 @@ body{
 	width: 350px;
 	border-radius : 250px;
 }
+ul li {
+    color: #E09867;
+    list-style-type: disc;
+}
+p{
+	color : #B3B0BA;
+	font-size :25px;
+	align-self: center;
+}
+.conta {
+	display : flex;
+	/* background-color : #0A094A; */
+	flex-direction: column;
+	border-radius: 250 px ;
+}
+.contacts{
+	display : felx;
+	flex-direction : column;
+}
+.contact{
+	width : 35 px;
+	height : 35 px;
+}
+#x1{color : #9D8EC0;}
+#x2{color : #84BCA6;}
+#x3{color : #749CA9;}
+#x4{color : #749CA9;}
+#x5{color : #538695;}
