@@ -9,12 +9,38 @@ body{
 	display: flex;
 	/* justify-content: center; */
 	/* align-items: center; */
-	flex-direction: raw;
-	border-radius: 50 px; 
+	flex-direction: column;
+	background-color : #46424F ;
+	width : 40%;
+	height : 70%;
+	border-style: inset;
+	border-width: 7px;
+	border-color: #749CA9;
+	  border-bottom: none;
+
+}
+.ims{
+	display: flex;
+	/* justify-content: center; */
+	/* align-items: center; */
+	flex-direction: column;
+	background-color : #46424F ;
+	width : 80%;
+	height : 70%;
+	border-style: inset;
+	border-width: 7px;
+	border-color: #749CA9;
+
 }
 .para{
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	/* background-image: url("pics/hadi-karimi-gk-1.jpg"); */
+	/* background-color: aqua;  */
+	align-self : center;
+	width : 90%;
+	border-radius:  30px;
+	justify-content: space-around;
 }
 .card {
 
@@ -22,9 +48,16 @@ body{
 	background-image: url("pics/hadi-karimi-gk-1.jpg") ;
 	background-size: 100% 100%;
 	/* background-repeat: no-repeat; */
-	height: 450px;
-	width: 350px;
+	height: 50%;
+	width:  30%;
+	max-width: 100px;
+	max-height : 200px;
 	border-radius : 250px;
+	align-self : center;
+	border: 6px dotted #84BCA6;
+}
+.about{
+	font-family:Kimberley;
 }
 ul li {
     color: #E09867;
@@ -34,23 +67,81 @@ p{
 	color : #B3B0BA;
 	font-size :25px;
 	align-self: center;
+	 font-family: "pacman", sans-serif;
+}
+#p2{
+	color : #B3B9BC;
+	font-size :20px;
+	align-self: start;
+	 font-family: "Kimberley", sans-serif;
+
+}
+#p1{
+	color : #9D8EC0;
+	font-size :25px;
+	align-self: start;
+	font-family: "k1", sans-serif;
+
 }
 .conta {
 	display : flex;
 	/* background-color : #0A094A; */
 	flex-direction: column;
 	border-radius: 250 px ;
+	
 }
 .contacts{
-	display : felx;
-	flex-direction : column;
+	display : flex;
+	flex-direction : row;
+	align-self: center;
+	width : 90%;
+	height: 7%;
+	justify-content: space-around;
 }
 .contact{
-	width : 35 px;
-	height : 35 px;
 }
 #x1{color : #9D8EC0;}
 #x2{color : #84BCA6;}
 #x3{color : #749CA9;}
 #x4{color : #749CA9;}
 #x5{color : #538695;}
+@font-face {
+  font-family: "Kimberley";
+  src: url("./fonts/JMH Cthulhumbus Arcade/TTF Alternatives UnGroup/JMH Cthulhumbus Arcade UG.ttf") format("truetype");
+}
+@font-face {
+  font-family: "pacman";
+  src: url("./fonts/Crackman Front.otf") format("truetype");
+}
+@font-face {
+  font-family: "k2";
+  src: url("./fonts/ka1.ttf") format("truetype");
+}
+@font-face {
+  font-family: "k1";
+  src: url("./fonts/Iomanoid Front.otf") format("truetype");
+}
+hr{
+
+	display: flex;
+	width: 30%;
+}
+.shape-section {
+	background: #fff;
+	height: 10px;
+	text-align: center;
+	transform:rotate(45deg);
+	width:10px;
+	position: absolute;
+  left: 49%;
+  top: 25%;
+}
+.in{
+  position: relative;
+}
+.c{
+	width: 100%;
+	height : 100%;
+	max-height: 35px;
+	border-radius : 4px;
+}
