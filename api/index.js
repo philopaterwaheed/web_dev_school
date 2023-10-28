@@ -49,7 +49,7 @@ app.post ('/api/users/', (req, res)=> {
 		return;
 	}
 	const user = {
-		id : users.length + 1 , 
+		id : req.body.id, 
 		email : req.body.email 
 	}
 	users.push(user);
