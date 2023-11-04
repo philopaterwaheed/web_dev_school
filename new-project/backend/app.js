@@ -1,6 +1,9 @@
 const express = require("express")
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+
 const User = require('./models/user.model')
+
 
 const mongouri = "mongodb://localhost:27017/lab2db"
 // app service 
@@ -12,19 +15,19 @@ app.use(express.urlencoded({extended: false}))
 let users= [
     {
         "id": "1",
-        "name": "Ali",
+        "fullName": "Ali",
         "phone": "0111111",
         "email": "ali@gmail.com"
     },
     {
         "id": "2",
-        "name": "mohamed",
+        "fullName": "mohamed",
         "phone": "02222222",
         "email": "mohamed@gmail.com"
     },
     {
         "id": "3",
-        "name": "Ahmed",
+        "fullName": "Ahmed",
         "phone": "0333333333333",
         "email": "Ahmed@gmail.com"
     }
@@ -52,11 +55,25 @@ app.get('/user/:id', async (req, res) => {
         const user = await User.findById(id);
         res.status(200).json(user);
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(404).json({message: error.message})
     }
 });
 
-// Assignment => write route to get user by email ????
+app.get('/user/email/:email', async (req, res) => {
+    
+    try {
+        // req id 
+        const email = req.params.email;
+        // find by id in users 
+        const user = await User.findOne ({email: email});
+	if (!user){
+		res.status(404).json({message: error.message})
+	}
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+});
 
 
 app.delete('/user/:id', async (req, res) => {
@@ -87,8 +104,10 @@ app.post('/adduser',  async (req, res) => {
         if (await User.findOne({ email: userParam.email })) {
             res.send( 'email "' + userParam.email + '" is already exist');
         }
-        const user = new User(userParam);
         //Assignment=> hash password before saving user to database ??????????   
+	const hashedpassword = await bcrypt.hash(userParam.password, 10);
+	userParam.password = hashedpassword ; 
+        const user = new User(userParam);
         // save user
          await user.save();
          res.send("user added successfully ")
@@ -102,11 +121,41 @@ app.post('/adduser',  async (req, res) => {
 
 // Assignment => add new route here to edit user info ???
 
+app.put('/edituser/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const userToUpdate = await User.findById(id);
+        if (!userToUpdate) {
+            return res.status(404).json({ message: `Cannot find any user with ID ${id}` });
+        }
+
+        // Update user properties based on the request body
+        if (req.body.name) {
+            userToUpdate.name = req.body.name;
+        }
+        if (req.body.phone) {
+            userToUpdate.phone = req.body.phone;
+        }
+        if (req.body.email) {
+            // Check if the new email is not already in use
+            const existingUser = await User.findOne({ email: req.body.email });
+            if (existingUser && existingUser.id !== id) {
+                return res.status(400).json({ message: 'Email is already in use by another user' });
+            }
+            userToUpdate.email = req.body.email;
+        }
+
+        // Save the updated user
+        const updatedUser = await userToUpdate.save();
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 
 mongoose.set("strictQuery", false)
-mongoose
-.connect('mongodb://127.0.0.1:27017/lab2db')
+mongoose.connect('mongodb://127.0.0.1:27017/lab2db')
 .then(() => {
     console.log('connected to MongoDB')
     //listen on specific port 
