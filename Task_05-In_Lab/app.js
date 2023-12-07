@@ -25,7 +25,7 @@ app.get('/users', async (req, res) => {
   }
 });
 
-
+//don't forget to add the images ;
 app.get('/products', async (req, res) => {
   try {
       const users = await Product.find({});
@@ -33,7 +33,8 @@ app.get('/products', async (req, res) => {
   } catch (error) {
       res.status(400).send(error);
   }
-});
+}); // 
+
 
 // add a product 
 app.post('/add__product', async (req, res) => {
@@ -51,9 +52,10 @@ app.post('/add__product', async (req, res) => {
   } catch (error) {
     return res.status(400).send(error.message);
   }
-});
+}); // done 
+
 // get product by its id 
-app.get("/product/:id", async (req, res) => {
+app.get("/products/:id", async (req, res) => {
   try {
     // req id
     const id = req.params.id;
@@ -63,7 +65,52 @@ app.get("/product/:id", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+}); // done 
+
+
+//update data by id 
+app.put("/product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const product = await Product.findByIdAndUpdate(id,body, {new : true});
+	return res.json(product)
+
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
 });
+
+
+app.get("/productByPrice/:price", async (req, res) => {
+  try {
+    const {price } = req.params;
+    const filteredProducts = await Product.find({ price: price });
+    if (!filteredProducts) {
+      return res
+        .status(404)
+        .json({ message: `there are no products with the price : {price}` });
+    }
+    return res.status(200).json(filteredProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});//done
+
+
+// Get products in a specific category
+app.get('/category/:category', async (req, res) => {
+  const category = req.params.category;
+  try {
+    const filteredProducts = await Product.find({ categories: category });
+    res.json(filteredProducts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}); // done
+
+
+
 // Get user by id or by email
 app.get("/user/:id", async (req, res) => {
   try {
@@ -91,6 +138,7 @@ app.get("/user/byemail/:email", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 app.delete('/user/:id', async (req, res) => {
