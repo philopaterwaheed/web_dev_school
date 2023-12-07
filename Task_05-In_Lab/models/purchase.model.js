@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const purchaseSchema = new Schema(
     {
-        bookId: mongoose.Schema.Types.ObjectId,
+        prodcutId: mongoose.Schema.Types.ObjectId,
         userId: mongoose.Schema.Types.ObjectId,
     },
     {

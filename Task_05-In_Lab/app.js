@@ -69,7 +69,7 @@ app.get("/products/:id", async (req, res) => {
 
 
 //update data by id 
-app.put("/product/:id", async (req, res) => {
+app.put("/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -126,6 +126,20 @@ app.get('/category/:category', async (req, res) => {
   }
 }); // done
 
+app.delete("/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      res.status(400).send(`cannot find book with id ${id}`);
+      return;
+    }
+
+    res.send(product);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 
 // Get products in a specific brand
 app.get('/brand/:brand', async (req, res) => {
