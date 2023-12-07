@@ -41,7 +41,7 @@ app.post('/add__product', async (req, res) => {
   try {
     // get user object from req body
     let productParam = req.body;
-    // validate user object
+    // validate product object
     if(await Product.findOne({name:productParam.name})){
     	return res.status(400).send("product already exist");
     }
@@ -97,6 +97,23 @@ app.get("/productByPrice/:price", async (req, res) => {
   }
 });//done
 
+// search with a string
+app.get('/productsSearch/', async (req, res) => {
+  try {
+    const searchString = req.query.q;
+
+    // Use a regular expression to perform a case-insensitive search
+    const regex = new RegExp(searchString, 'i');
+
+    // Find products that match the search string
+    const result = await Product.find({ name: regex });
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // Get products in a specific category
 app.get('/category/:category', async (req, res) => {
@@ -110,6 +127,16 @@ app.get('/category/:category', async (req, res) => {
 }); // done
 
 
+// Get products in a specific brand
+app.get('/brand/:brand', async (req, res) => {
+  const brand = req.params.brand;
+  try {
+    const filteredProducts = await Product.find({ brand: brand });
+    res.json(filteredProducts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}); // done
 
 // Get user by id or by email
 app.get("/user/:id", async (req, res) => {
@@ -174,64 +201,7 @@ app.post('/add__user', async (req, res) => {
   }
 });
 
-app.put("/user/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { fullName ,email ,password ,phoneNumber ,image ,favorites} = req.body;
-    const user = await User.findById(id);
 
-    if (fullName) {
-      user.fullName = fullName;
-    }
-
-    if (email) {
-      user.email = email;
-    }
-
-    if (password) {
-      user.password = password;
-    }
-    
-    if (phoneNumber) {
-      user.phoneNumber = phoneNumber;
-    }
-
-    if (image) {
-      user.image = image;
-    }
-
-    if (favorites) {
-      user.favorites = favorites;
-    }
-    
-    res.send(user);
-
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-});
-
-app.get('/books', async (req, res) => {
-  try {
-      const books = await Book.find({});
-      res.json(books);
-  } catch (error) {
-      res.status(400).send(error);
-  }
-});
-
-
-app.get("/book/:id", async (req, res) => {
-  try {
-    // req id
-    const id = req.params.id;
-    // find by id in books
-    const book = await Book.findById(id);
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 
 app.get("/book/bytitle/:title", async (req, res) => {
