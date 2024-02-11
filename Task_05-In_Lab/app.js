@@ -252,62 +252,6 @@ app.post('/add__book', async (req, res) => {
   }
 });
 
-app.put("/book/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { title , description , author , price , stock , categories } = req.body;
-    const book = await Book.findById(id);
-
-    if (title) {
-      book.title = title;
-    }
-
-    if (description) {
-      book.description = description;
-    }
-
-    if (author) {
-      book.author = author;
-    }
-
-    if (price) {
-      book.price = price;
-    }
-
-    if (stock) {
-      book.stock = stock ;
-    } else if (stock  == 0){
-      book.stock = 0 ;
-    }
-    
-    if (categories) {
-      book.categories = categories;
-    }
-
-    await book.save();
-    res.send(book);
-
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-});
-
-app.delete("/book/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const book = await Book.findByIdAndDelete(id);
-    if (!book) {
-      res.status(400).send(`cannot find book with id ${id}`);
-      return;
-    }
-
-    res.send(book);
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-});
-
-
 
 app.post("/addPurchase/:bookId/:userId", async (req, res) => {
   try {

@@ -23,7 +23,8 @@ body{
 	display: flex;
 	/* justify-content: center; */
 	/* align-items: center; */
-	flex-direction: column;
+	flex-direction: r;
+	flex-wrap: wrap;
 	background-color : #46424F ;
 	width : 80%;
 	height : 100%;
@@ -41,7 +42,8 @@ body{
 	align-self : center;
 	width : 90%;
 	border-radius:  30px;
-	justify-content: space-around;
+	justify-content: space-around;overflow: hidden;
+	justify-content: center;
 }
 .card {
 
